@@ -18,7 +18,7 @@ RUN apt update && apt dist-upgrade -y && \
         ca-certificates \
         git \
         unzip && \
-    # PHP EXTENSIONS
+    # TIMEZONE
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
     # PHP EXTENSIONS
@@ -28,7 +28,6 @@ RUN apt update && apt dist-upgrade -y && \
     # CLEAN UP
     apt-get clean -y && \
     apt-get autoclean -y && \
-    apt-get remove -y wget curl && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
