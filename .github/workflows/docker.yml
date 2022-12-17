@@ -16,6 +16,9 @@ jobs:
                     - context: ./8.1-apache
                       tag: 8.1-apache
 
+                    - context: ./8.2-apache
+                      tag: 8.2-apache
+
             fail-fast: false
 
         name: Docker (reinerttomas/php:${{ matrix.tag }})
