@@ -1,17 +1,8 @@
-ARG PHP_VERSION="8.0"
-ARG COMPOSER_VERSION="2"
-
-# ======================================================================================================================
-#                                                   --- Composer ---
-# ======================================================================================================================
-
-FROM composer:${COMPOSER_VERSION} as composer
-
 # ======================================================================================================================
 #                                                   --- PHP ---
 # ======================================================================================================================
 
-FROM php:${PHP_VERSION}-apache
+FROM php:8.0-apache
 
 ENV TZ=Europe/Prague
 
@@ -34,16 +25,15 @@ RUN chmod +x /usr/local/bin/install-php-extensions \
         intl \
         zip \
         pdo \
-        pdo_mysql
-
-# Clean
-RUN apt-get clean -y  \
+        pdo_mysql \
+    # Clean
+    && apt-get clean -y  \
     && apt-get autoclean -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # Composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Development config
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
