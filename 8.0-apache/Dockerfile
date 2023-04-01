@@ -27,6 +27,7 @@ RUN chmod +x /usr/local/bin/install-php-extensions \
         pdo \
         pdo_mysql \
         mysqli \
+        xdebug \
     # Clean
     && apt-get clean -y  \
     && apt-get autoclean -y \
